@@ -5,7 +5,7 @@ module Checker
       private
       def check_one(file, opts = {})
         lines = File.readlines(file).reject{|l| l =~ /^\@import|\@include/}
-        f = Tempfile.new("scss_check", File.extname(file))
+        f = Tempfile.new(["scss_check", File.extname(file)])
         f.write(lines.join)
         f.flush
         plain_command("sass #{"--scss" if opts[:extension] == ".scss"} -c #{f.path}")
